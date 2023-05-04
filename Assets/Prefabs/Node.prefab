@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1654272393995084793}
+  - component: {fileID: 6296037969261820847}
   - component: {fileID: 1654272393995084794}
   - component: {fileID: 1654272393995084795}
-  - component: {fileID: 1654272393995084772}
   m_Layer: 0
   m_Name: Node
   m_TagString: Untagged
@@ -34,6 +34,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6296037969261820847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654272393995084773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d34444b6eea924cae26e51275710a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  position: {x: 0, y: 0, z: 0}
+  diameter: 1
+  volume: 1
+  phase: 1
+  region_label: 1
+  region_volume: 1
+  surface_area: 1
+  edges: []
 --- !u!33 &1654272393995084794
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -84,16 +105,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1654272393995084772
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654272393995084773}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

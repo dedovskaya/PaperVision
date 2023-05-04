@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Graph
+public class Graph : MonoBehaviour
 {
-    public List<Node> nodes;
-    public List<Edge> edges;
+    public List<GameObject> nodes;
+    public List<GameObject> edges;
 
-    //public Graph()
+    //public Graph(List<Node> nodes, List<Edge> edges)
     //{
-
+    //    this.nodes = nodes;
+    //    this.edges = edges;
     //}
-
-    public Graph(List<Node> nodes, List<Edge> edges)
-    {
-        this.nodes = nodes;
-        this.edges = edges;
-    }
 }

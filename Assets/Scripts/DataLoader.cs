@@ -8,14 +8,18 @@ using System;
 public class DataLoader : MonoBehaviour
 {
     public TextAsset jsonFile;
+    public GameObject nodePrefab;
+    public GameObject edgePrefab;
 
-    public Graph graphData;
-    // Create a list to hold the Node and Edge objects
-    public List<Node> nodes = new List<Node>();
-    public List<Edge> edges = new List<Edge>();
+
+    //// Create a list to hold the Node and Edge objects
+    //private List<Node> nodes = new List<Node>();
+    //private List<Edge> edges = new List<Edge>();
+
     //public Graph graphData = new Graph();
-    public Graph LoadData()
+    public void LoadData()
     {
+        Graph graphData = gameObject.GetComponent<Graph>();
         // Read the JSON file as a string
         string jsonString = jsonFile.text;        
 
@@ -29,7 +33,17 @@ public class DataLoader : MonoBehaviour
         // Access the "edges" array
         JArray edges_json = json["graph"]["edges"] as JArray;
 
-        // Iterate over each node
+        // Create a parent game object for the graph
+        GameObject graphObj = new GameObject("MainGraph");
+        graphObj.transform.position = new Vector3(0, 0, 0);
+
+        // Set its position to the desired location for the graph
+        GameObject nodesObj = new GameObject("Nodes");
+        nodesObj.transform.SetParent(graphObj.transform);
+
+        GameObject edgesObj = new GameObject("Edges");
+        edgesObj.transform.SetParent(graphObj.transform);
+
         foreach (JObject node_in_json in nodes_json)
         {
             //"id": "78",
@@ -52,12 +66,14 @@ public class DataLoader : MonoBehaviour
             float radius = Convert.ToSingle(Math.Sqrt(node_squared_radius));
             float volume = (float)(radius * 4 / 3 * Math.PI * Math.Pow(radius, 3));
 
-            Node node = new Node(id, position, volume);
-            //Node node = gameObject.AddComponent<Node>();
-            //node.id = id;
-            //node.position = position;
-            //node.volume = volume;
-            nodes.Add(node);
+            GameObject node = Instantiate(nodePrefab, nodesObj.transform);
+            node.name = id;
+            Node node_props = node.GetComponent<Node>();
+            //Node node_props = nodePrefab.GetComponent<Node>();
+            node_props.id = id;
+            node_props.position = position;
+            node_props.volume = volume;
+            graphData.nodes.Add(node);
         }
 
         // Iterate over each edge
@@ -79,32 +95,30 @@ public class DataLoader : MonoBehaviour
             float edge_length = (float)edge_in_json["metadata"]["link_length"];
             float edge_squared_radius = (float)edge_in_json["metadata"]["link_squared_radius"];
 
-            Edge edge = new Edge(id, sourceNodeId, targetNodeId);
             //Edge edge = gameObject.AddComponent<Edge>();
-            Node sourceNode = nodes.Find(n => n.id == sourceNodeId);
-            Node targetNode = nodes.Find(n => n.id == targetNodeId);
+            GameObject edge = Instantiate(edgePrefab, edgesObj.transform);
+            edge.name = sourceNodeId + "to" + targetNodeId;
 
-            sourceNode.edges.Add(edge);
-            targetNode.edges.Add(edge);
+            Edge edge_props = edge.GetComponent<Edge>();
+            GameObject sourceNode = graphData.nodes.Find(n => n.name == sourceNodeId);
+            GameObject targetNode = graphData.nodes.Find(n => n.name == targetNodeId);
+            edge_props.source_node = sourceNode;
+            edge_props.target_node = targetNode;
 
-            edges.Add(edge);
+            // Add edges to nodes
+            sourceNode.GetComponent<Node>().edges.Add(edge);
+            targetNode.GetComponent<Node>().edges.Add(edge);
+
+            graphData.edges.Add(edge);
         }
-
-        // Construct a GraphData object from the parsed Node and Edge objects
-        Graph graphData = new Graph(nodes, edges);
-
-        return graphData;
 
     }
 
     void Start()
     {
         Debug.Log("DataLoader.Start() called");
-        //LoadData();
-        //graphData = gameObject.AddComponent<Graph>();
-        //graphData.nodes = nodes;
-        //graphData.edges = edges;
-        graphData = LoadData();
+        LoadData();
+        Graph graphData = gameObject.GetComponent<Graph>();
         Debug.Log($"graphData is created: {graphData}. Num nodes: {graphData.nodes.Count}. Num edges: {graphData.edges.Count}");
     }
 }
