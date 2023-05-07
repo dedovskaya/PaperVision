@@ -13,6 +13,7 @@ public class Node : MonoBehaviour
     public int region_label = 1;
     public float region_volume = 1f;
     public float surface_area = 1f;
+    public float velocity = 0;
 
     // Edge list
     public List<GameObject> edges = new List<GameObject>();

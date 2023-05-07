@@ -34,7 +34,7 @@ public class DataLoader : MonoBehaviour
         JArray edges_json = json["graph"]["edges"] as JArray;
 
         // Create a parent game object for the graph
-        GameObject graphObj = new GameObject("MainGraph");
+        GameObject graphObj = GameObject.Find("MainGraph");
         graphObj.transform.position = new Vector3(0, 0, 0);
 
         // Set its position to the desired location for the graph
