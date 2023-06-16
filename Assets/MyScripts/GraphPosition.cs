@@ -15,7 +15,6 @@ public class GraphPosition : MonoBehaviour
 
         nodes.transform.localScale = new Vector3(0.0160000008f, 0.0160000008f, 0.0160000008f);
         nodes.transform.position = new Vector3(4.96299982f, 0.93599999f, -0.0700000003f);
-
     }
 
 }
