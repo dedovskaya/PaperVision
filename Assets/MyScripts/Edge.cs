@@ -10,15 +10,15 @@ public class Edge : MonoBehaviour
     public bool directed;
 
     // From csv
-    public string cross_sectional_area;
-    public string diameter;
-    public string direct_length;
-    public string equivalent_diameter;
-    public string inscribed_diameter;
-    public string length;
-    public string perimeter;
-    public string total_length;
-    public string volume;
+    public float cross_sectional_area;
+    public float diameter;
+    public float direct_length;
+    public float equivalent_diameter;
+    public float inscribed_diameter;
+    public float length;
+    public float perimeter;
+    public float total_length;
+    public float volume;
     public string all;
     public string outer_outer;
     public string outer_void;

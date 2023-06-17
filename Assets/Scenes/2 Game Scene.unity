@@ -2436,7 +2436,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
@@ -5170,16 +5170,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748960624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.007248285}
+  m_LocalPosition: {x: 0, y: 0, z: -0.030136468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2942837531683826065}
-  m_RootOrder: 2
+  m_Father: {fileID: 8143904773195719048}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.999765, y: -94.999886}
+  m_AnchoredPosition: {x: -138.99782, y: -94.9998}
   m_SizeDelta: {x: 464, y: 18}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &748960626
@@ -6407,16 +6407,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924775998}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.007248285}
+  m_LocalPosition: {x: 0, y: 0, z: -0.030136468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2942837531683826065}
-  m_RootOrder: 4
+  m_Father: {fileID: 8143904773195719048}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.999414, y: -157.99991}
+  m_AnchoredPosition: {x: -138.997, y: -157.99983}
   m_SizeDelta: {x: 464, y: 18}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &924776000
@@ -7519,16 +7519,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105502672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.007248285}
+  m_LocalPosition: {x: 0, y: 0, z: -0.030136468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2942837531683826065}
-  m_RootOrder: 3
+  m_Father: {fileID: 8143904773195719048}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.999765, y: -126.99981}
+  m_AnchoredPosition: {x: -138.99782, y: -126.999886}
   m_SizeDelta: {x: 464, y: 18}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1105502674
@@ -12076,6 +12076,9 @@ MonoBehaviour:
   panel4_slider2: {fileID: 8143904773195719049}
   graph: {fileID: 1602246611}
   paper: {fileID: 1002445648}
+  selectedMaterialNodes: {fileID: 2100000, guid: c082792463c0b394ab4527920402a056,
+    type: 2}
+  transparentMaterial: {fileID: 2100000, guid: 61c1b350da69ea044be5eb19e991d66c, type: 2}
 --- !u!114 &1602246610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19130,6 +19133,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_MinValue
+      value: -1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1602246609}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateEdgesIfOutOfRange
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GraphController, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c83e540c0057948b19107b827dc236, type: 3}
 --- !u!224 &2276082728540827739 stripped
@@ -21009,9 +21042,6 @@ RectTransform:
   m_Children:
   - {fileID: 819620541334676353}
   - {fileID: 8143904773195719048}
-  - {fileID: 748960625}
-  - {fileID: 1105502673}
-  - {fileID: 924775999}
   m_Father: {fileID: 2276082729215199667}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21999,7 +22029,37 @@ PrefabInstance:
     - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
         type: 3}
       propertyPath: m_Value
-      value: 0.38
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_MinValue
+      value: -1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1602246609}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateNodesIfOutOfRange
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GraphController, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c83e540c0057948b19107b827dc236, type: 3}
@@ -23477,7 +23537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5468122427555212321}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -20.1, y: 0, z: 0.48}
+  m_LocalPosition: {x: 1.77, y: 0, z: 0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24127,6 +24187,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1602246609}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateNodesIfOutOfRange
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GraphController, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c83e540c0057948b19107b827dc236, type: 3}
@@ -25954,6 +26034,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_MinValue
+      value: -1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1602246609}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateEdgesIfOutOfRange
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969571752666551115, guid: f4c83e540c0057948b19107b827dc236,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GraphController, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c83e540c0057948b19107b827dc236, type: 3}

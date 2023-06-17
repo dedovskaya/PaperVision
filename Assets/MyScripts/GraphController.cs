@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+//using TreeEditor;
+//using UnityEngine.UIElements;
 
 public class GraphController : MonoBehaviour
 {
@@ -43,6 +45,21 @@ public class GraphController : MonoBehaviour
     public Graph graph;
     public GameObject paper;
 
+    // Materials
+    public Material selectedMaterialNodes;
+    private Color selectedStartColorEdges;
+    private Material selectedMaterialEdges;
+    private Color selectedEndColorEdges;
+    public Material transparentMaterial;
+
+    private void Start()
+    {
+        selectedMaterialNodes = Resources.Load<Material>("MyMaterials/Red");
+        selectedMaterialEdges = Resources.Load<Material>("MyMaterials/Blue");
+        selectedStartColorEdges = Color.green;
+        selectedEndColorEdges = Color.blue;
+
+    }
     ////////////////////////////////////////////////////////////////////// Vizibility panel functions 
 
     public void ShowPaper()
@@ -79,25 +96,19 @@ public class GraphController : MonoBehaviour
             foreach (GameObject node in graph.nodes)
             {
                 Renderer renderer = node.GetComponent<Renderer>();
-
-                // Get a reference to the new material you want to assign
-                Material newMaterial = Resources.Load<Material>("MyMaterials/Red");
-
                 // Assign the new material to the object
-                renderer.material = newMaterial;
-            }
+                renderer.material.color = Color.red;
+                selectedMaterialNodes = renderer.material;
+            }  
         }
         else
         {
+            Material transparentMaterial = Resources.Load<Material>("MyMaterials/Transparent");
             foreach (GameObject node in graph.nodes)
             {
                 Renderer renderer = node.GetComponent<Renderer>();
-
-                // Get a reference to the new material you want to assign
-                Material newMaterial = Resources.Load<Material>("MyMaterials/Transparent");
-
                 // Assign the new material to the object
-                renderer.material = newMaterial;
+                renderer.material = transparentMaterial;
             }
         }
     }
@@ -119,7 +130,10 @@ public class GraphController : MonoBehaviour
 
                 // Update the LineRenderer's color with the new alpha value
                 lineRenderer.startColor = lineColor;
+                selectedStartColorEdges = lineRenderer.startColor;
+                
                 lineRenderer.endColor = lineColor;
+                selectedEndColorEdges = lineRenderer.endColor;
             }
         }
         else
@@ -169,6 +183,7 @@ public class GraphController : MonoBehaviour
 
             // Change the color of the material to red
             renderer.material.color = Color.blue;
+            selectedMaterialNodes = renderer.material;
         }
     }
 
@@ -181,6 +196,7 @@ public class GraphController : MonoBehaviour
 
             // Change the color of the material to red
             renderer.material.color = Color.red;
+            selectedMaterialNodes = renderer.material;
         }
     }
 
@@ -193,6 +209,7 @@ public class GraphController : MonoBehaviour
 
             // Change the color of the material to red
             renderer.material.color = Color.green;
+            selectedMaterialNodes = renderer.material;
         }
     }
 
@@ -223,6 +240,8 @@ public class GraphController : MonoBehaviour
             // Change the color of the material to red
             lineRenderer.startColor = Color.blue;
             lineRenderer.endColor = Color.blue;
+            selectedEndColorEdges = lineRenderer.endColor;
+            selectedStartColorEdges = lineRenderer.startColor;
         }
     }
 
@@ -236,6 +255,8 @@ public class GraphController : MonoBehaviour
             // Change the color of the material to red
             lineRenderer.startColor = Color.red;
             lineRenderer.endColor = Color.red;
+            selectedEndColorEdges = lineRenderer.endColor;
+            selectedStartColorEdges = lineRenderer.startColor;
         }
     }
 
@@ -249,6 +270,8 @@ public class GraphController : MonoBehaviour
             // Change the color of the material to red
             lineRenderer.startColor = Color.green;
             lineRenderer.endColor = Color.green;
+            selectedEndColorEdges = lineRenderer.endColor;
+            selectedStartColorEdges = lineRenderer.startColor;
         }
     }
 
@@ -326,6 +349,34 @@ public class GraphController : MonoBehaviour
     }
 
     ////////////////////////////////////////////////////////////////////// Pore data panel functions
+    public void CalculateValuesAndSetSliders(Slider slider1, Slider slider2, List<float> data)
+    {
+        float valMin = FindMinimumFloatList(data);
+        Debug.Log(valMin);
+        float valMax = FindMaximumFloatList(data);
+        Debug.Log(valMax);
+        float valMean = FindMeanFloatList(data);
+        Debug.Log(valMean);
+
+        // Set minimum and maximum values of the slider to the minimum and maximum values of the data
+        slider1.minValue = valMin;
+        slider1.maxValue = valMax;
+
+        slider2.minValue = valMin;
+        slider2.maxValue = valMax;
+        // Sen the value of the slider to minimum
+        slider1.value = valMin;
+        slider2.value = valMax;
+
+        // Set text of the child component of the slider to the current value of the slider
+        slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = slider1.value.ToString();
+        slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = slider2.value.ToString();
+
+        // Set the text of a child component of the slider to the mean value of the data
+        slider2.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = "Maximum: " + valMax.ToString();
+        slider2.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = "Minimum: " + valMin.ToString();
+        slider2.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = "Mean: " + valMean.ToString();
+    }
     public void VisualizePropertyNodes()
     {
         List<float> new_data = new List<float>();
@@ -338,29 +389,8 @@ public class GraphController : MonoBehaviour
                 new_data.Add(nodeprops.volume);
             }
 
-            float valMin = FindMinimumFloatList(new_data);
-            float valMax = FindMaximumFloatList(new_data);
-            float valMean = FindMeanFloatList(new_data);
-
-            // Set minimum and maximum values of the slider to the minimum and maximum values of the data
-            panel3_slider1.minValue = valMin;
-            panel3_slider1.maxValue = valMax;
-
-            panel3_slider2.minValue = valMin;
-            panel3_slider2.maxValue = valMax;
-            // Sen the value of the slider to minimum
-            panel3_slider1.value = valMin;
-            panel3_slider2.value = valMax;
-
-            // Set text of the child component of the slider to the current value of the slider
-            panel3_slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel3_slider1.value.ToString();
-            panel3_slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel3_slider1.value.ToString();
-
-            // Set the text of a child component of the slider to the mean value of the data
-            panel3_slider1.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = valMax.ToString();
-            panel3_slider1.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = valMin.ToString();
-            panel3_slider1.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = valMean.ToString();
-            DeactivateNodesIfOutOfRange();
+            CalculateValuesAndSetSliders(panel3_slider1, panel3_slider2, new_data);
+            //DeactivateNodesIfOutOfRange(panel3_slider1, panel3_slider2);
         }
         else if (panel3_selectable1.value == 1)
         {
@@ -371,29 +401,8 @@ public class GraphController : MonoBehaviour
                 new_data.Add(nodeprops.diameter);
             }
 
-            float valMin = FindMinimumFloatList(new_data);
-            float valMax = FindMaximumFloatList(new_data);
-            float valMean = FindMeanFloatList(new_data);
-
-            // Set minimum and maximum values of the slider to the minimum and maximum values of the data
-            panel3_slider1.minValue = valMin;
-            panel3_slider1.maxValue = valMax;
-
-            panel3_slider2.minValue = valMin;
-            panel3_slider2.maxValue = valMax;
-            // Sen the value of the slider to minimum
-            panel3_slider1.value = valMin;
-            panel3_slider2.value = valMax;
-
-            // Set text of the child component of the slider to the current value of the slider
-            panel3_slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel3_slider1.value.ToString();
-            panel3_slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel3_slider1.value.ToString();
-
-            // Set the text of a child component of the slider to the mean value of the data
-            panel3_slider1.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = valMax.ToString();
-            panel3_slider1.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = valMin.ToString();
-            panel3_slider1.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = valMean.ToString();
-            DeactivateNodesIfOutOfRange();
+            CalculateValuesAndSetSliders(panel3_slider1, panel3_slider2, new_data);
+            //DeactivateNodesIfOutOfRange(panel3_slider1, panel3_slider2);
 
         }
         else if (panel3_selectable1.value == 2)
@@ -405,189 +414,8 @@ public class GraphController : MonoBehaviour
                 new_data.Add(nodeprops.surface_area);
             }
 
-            float valMin = FindMinimumFloatList(new_data);
-            float valMax = FindMaximumFloatList(new_data);
-            float valMean = FindMeanFloatList(new_data);
-
-            // Set minimum and maximum values of the slider to the minimum and maximum values of the data
-            panel3_slider1.minValue = valMin;
-            panel3_slider1.maxValue = valMax;
-
-            panel3_slider2.minValue = valMin;
-            panel3_slider2.maxValue = valMax;
-            // Sen the value of the slider to minimum
-            panel3_slider1.value = valMin;
-            panel3_slider2.value = valMax;
-
-            // Set text of the child component of the slider to the current value of the slider
-            panel3_slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel3_slider1.value.ToString();
-            panel3_slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel3_slider1.value.ToString();
-
-            // Set the text of a child component of the slider to the mean value of the data
-            panel3_slider1.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = valMax.ToString();
-            panel3_slider1.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = valMin.ToString();
-            panel3_slider1.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = valMean.ToString();
-            DeactivateNodesIfOutOfRange();
-        }
-    }
-
-    private float ParseFloat(string value)
-    {
-        float result = 0;
-        float.TryParse(value, out result);
-        return result;
-    }
-
-    public void VisualizePropertyEdges()
-    {
-        List<float> new_data = new List<float>();
-        if (panel4_selectable1.value == 0)
-        {
-            foreach (GameObject edge in graph.edges)
-            {
-                // Get a reference to the object's renderer component
-                Edge edgeprops = edge.GetComponent<Edge>();
-                // Parse edgeprops.volume to float
-
-                new_data.Add(ParseFloat(edgeprops.volume));
-            }
-
-            float valMin = FindMinimumFloatList(new_data);
-            float valMax = FindMaximumFloatList(new_data);
-            float valMean = FindMeanFloatList(new_data);
-
-            // Set minimum and maximum values of the slider to the minimum and maximum values of the data
-            panel4_slider1.minValue = valMin;
-            panel4_slider1.maxValue = valMax;
-
-            panel4_slider2.minValue = valMin;
-            panel4_slider2.maxValue = valMax;
-            // Sen the value of the slider to minimum
-            panel4_slider1.value = valMin;
-            panel4_slider2.value = valMax;
-
-            // Set text of the child component of the slider to the current value of the slider
-            panel4_slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-            panel4_slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-
-            // Set the text of a child component of the slider to the mean value of the data
-            panel4_slider1.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = valMax.ToString();
-            panel4_slider1.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = valMin.ToString();
-            panel4_slider1.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = valMean.ToString();
-            DeactivateEdgesIfOutOfRange();
-        }
-        else if (panel4_selectable1.value == 1)
-        {
-            foreach (GameObject edge in graph.edges)
-            {
-                // Get a reference to the object's renderer component
-                Edge edgeprops = edge.GetComponent<Edge>();
-                new_data.Add(ParseFloat(edgeprops.cross_sectional_area));
-            }
-            float valMin = FindMinimumFloatList(new_data);
-            float valMax = FindMaximumFloatList(new_data);
-            float valMean = FindMeanFloatList(new_data);
-
-            // Set minimum and maximum values of the slider to the minimum and maximum values of the data
-            panel4_slider1.minValue = valMin;
-            panel4_slider1.maxValue = valMax;
-
-            panel4_slider2.minValue = valMin;
-            panel4_slider2.maxValue = valMax;
-            // Sen the value of the slider to minimum
-            panel4_slider1.value = valMin;
-            panel4_slider2.value = valMax;
-
-            // Set text of the child component of the slider to the current value of the slider
-            panel4_slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-            panel4_slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-
-            // Set the text of a child component of the slider to the mean value of the data
-            panel4_slider1.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = valMax.ToString();
-            panel4_slider1.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = valMin.ToString();
-            panel4_slider1.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = valMean.ToString();
-            DeactivateEdgesIfOutOfRange();
-        }
-        else if(panel4_selectable1.value == 2)
-        {
-            foreach (GameObject edge in graph.edges)
-            {
-                // Get a reference to the object's renderer component
-                Edge edgeprops = edge.GetComponent<Edge>();
-                new_data.Add(ParseFloat(edgeprops.diameter));
-            }
-            float valMin = FindMinimumFloatList(new_data);
-            float valMax = FindMaximumFloatList(new_data);
-            float valMean = FindMeanFloatList(new_data);
-
-            // Set minimum and maximum values of the slider to the minimum and maximum values of the data
-            panel4_slider1.minValue = valMin;
-            panel4_slider1.maxValue = valMax;
-
-            panel4_slider2.minValue = valMin;
-            panel4_slider2.maxValue = valMax;
-            // Sen the value of the slider to minimum
-            panel4_slider1.value = valMin;
-            panel4_slider2.value = valMax;
-
-            // Set text of the child component of the slider to the current value of the slider
-            panel4_slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-            panel4_slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-
-            // Set the text of a child component of the slider to the mean value of the data
-            panel4_slider1.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = valMax.ToString();
-            panel4_slider1.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = valMin.ToString();
-            panel4_slider1.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = valMean.ToString();
-            DeactivateEdgesIfOutOfRange();
-        }
-        else if (panel4_selectable1.value == 3)
-        {
-            foreach (GameObject edge in graph.edges)
-            {
-                // Get a reference to the object's renderer component
-                Edge edgeprops = edge.GetComponent<Edge>();
-                new_data.Add(ParseFloat(edgeprops.length));
-            }
-            float valMin = FindMinimumFloatList(new_data);
-            float valMax = FindMaximumFloatList(new_data);
-            float valMean = FindMeanFloatList(new_data);
-
-            // Set minimum and maximum values of the slider to the minimum and maximum values of the data
-            panel4_slider1.minValue = valMin;
-            panel4_slider1.maxValue = valMax;
-
-            panel4_slider2.minValue = valMin;
-            panel4_slider2.maxValue = valMax;
-            // Sen the value of the slider to minimum
-            panel4_slider1.value = valMin;
-            panel4_slider2.value = valMax;
-
-            // Set text of the child component of the slider to the current value of the slider
-            panel4_slider1.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-            panel4_slider2.transform.Find("Value Text").GetComponent<TextMeshProUGUI>().text = panel4_slider1.value.ToString();
-
-            // Set the text of a child component of the slider to the mean value of the data
-            panel4_slider1.transform.Find("Max").GetComponent<TextMeshProUGUI>().text = valMax.ToString();
-            panel4_slider1.transform.Find("Min").GetComponent<TextMeshProUGUI>().text = valMin.ToString();
-            panel4_slider1.transform.Find("Mean").GetComponent<TextMeshProUGUI>().text = valMean.ToString();
-            DeactivateEdgesIfOutOfRange();
-        }
-    }
-
-    public void DeactivateEdgesIfOutOfRange()
-    {
-        foreach (GameObject edge in graph.edges)
-        {
-            // Get a reference to the object's renderer component
-            Edge edgeprops = edge.GetComponent<Edge>();
-            if (ParseFloat(edgeprops.cross_sectional_area) < panel4_slider1.value || ParseFloat(edgeprops.cross_sectional_area) > panel4_slider2.value)
-            {
-                edge.SetActive(false);
-            }
-            else
-            {
-                edge.SetActive(true);
-            }
+            CalculateValuesAndSetSliders(panel3_slider1, panel3_slider2, new_data);
+            //DeactivateNodesIfOutOfRange(panel3_slider1, panel3_slider2);
         }
     }
 
@@ -599,14 +427,89 @@ public class GraphController : MonoBehaviour
             Node nodeprops = node.GetComponent<Node>();
             if (nodeprops.diameter < panel3_slider1.value || nodeprops.diameter > panel3_slider2.value)
             {
-                node.SetActive(false);
+                //node.SetActive(false);
+                node.GetComponent<Renderer>().material = transparentMaterial;
             }
             else
             {
-                node.SetActive(true);
+                node.GetComponent<Renderer>().material = selectedMaterialNodes;
+                //node.SetActive(true);
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////// Throat data panel functions
+    public void VisualizePropertyEdges()
+    {
+        List<float> new_data = new List<float>();
+        if (panel4_selectable1.value == 0)
+        {
+            foreach (GameObject edge in graph.edges)
+            {
+                // Get a reference to the object's renderer component
+                Edge edgeprops = edge.GetComponent<Edge>();
+                // Parse edgeprops.volume to float
+
+                new_data.Add(edgeprops.volume);
+            }
+
+            CalculateValuesAndSetSliders(panel4_slider1, panel4_slider2, new_data);
+        }
+        else if (panel4_selectable1.value == 1)
+        {
+            foreach (GameObject edge in graph.edges)
+            {
+                // Get a reference to the object's renderer component
+                Edge edgeprops = edge.GetComponent<Edge>();
+                new_data.Add(edgeprops.cross_sectional_area);
+            }
+            CalculateValuesAndSetSliders(panel4_slider1, panel4_slider2, new_data);
+
+        }
+        else if (panel4_selectable1.value == 2)
+        {
+            foreach (GameObject edge in graph.edges)
+            {
+                // Get a reference to the object's renderer component
+                Edge edgeprops = edge.GetComponent<Edge>();
+                new_data.Add(edgeprops.diameter);
+            }
+            CalculateValuesAndSetSliders(panel4_slider1, panel4_slider2, new_data);
+        }
+        else if (panel4_selectable1.value == 3)
+        {
+            foreach (GameObject edge in graph.edges)
+            {
+                // Get a reference to the object's renderer component
+                Edge edgeprops = edge.GetComponent<Edge>();
+                new_data.Add(edgeprops.length);
+            }
+            CalculateValuesAndSetSliders(panel4_slider1, panel4_slider2, new_data);
+        }
+    }
+    public void DeactivateEdgesIfOutOfRange()
+    {
+        foreach (GameObject edge in graph.edges)
+        {
+            // Get a reference to the object's renderer component
+            Edge edgeprops = edge.GetComponent<Edge>();
+            if (edgeprops.cross_sectional_area < panel4_slider1.value || edgeprops.cross_sectional_area > panel4_slider2.value)
+            {
+                // Get a reference to the object's renderer component and set it to transparent material
+                edge.GetComponent<Renderer>().material = transparentMaterial;
+                //edge.SetActive(false);
+            }
+            else
+            {
+                LineRenderer lineRenderer = edge.GetComponent<LineRenderer>();
+                lineRenderer.material = selectedMaterialEdges;
+                lineRenderer.startColor = selectedStartColorEdges;
+                lineRenderer.endColor = selectedEndColorEdges;
+                //edge.SetActive(true);
+            }
+        }
+    }
+
     private float FindMinimumFloatList(List<float> floatList)
     {
         float min = 9999999999999;
@@ -643,8 +546,13 @@ public class GraphController : MonoBehaviour
         return sum / floatList.Count;
     }
 
+    private float ParseFloat(string value)
+    {
+        float result = 0;
+        float.TryParse(value, out result);
+        return result;
+    }
 
-    ////////////////////////////////////////////////////////////////////// Throat data panel functions
     // Update is called once per frame
     void Update()
     {
@@ -662,6 +570,10 @@ public class GraphController : MonoBehaviour
         {
             RotateZ();
         }
+
+        DeactivateNodesIfOutOfRange();
+        DeactivateEdgesIfOutOfRange();
+    }
         //if (createForceGraph)
         //{
         //    float springLength = 20;
@@ -722,5 +634,5 @@ public class GraphController : MonoBehaviour
         //        }
         //    }
         //}
-    }
 }
+
