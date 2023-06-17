@@ -3593,7 +3593,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Vizibility
+  m_text: Visibility
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
   m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed,
@@ -5663,6 +5663,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 741653620401015265}
   m_Colliders:
   - {fileID: 826442476}
+  - {fileID: 1053593238}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -17755,12 +17756,12 @@ PrefabInstance:
     - target: {fileID: 8420827868216689141, guid: 43b5338671634614e91e9601493dbac0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8420827868216689141, guid: 43b5338671634614e91e9601493dbac0,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8420827868216689141, guid: 43b5338671634614e91e9601493dbac0,
         type: 3}
@@ -17770,7 +17771,7 @@ PrefabInstance:
     - target: {fileID: 8420827868216689141, guid: 43b5338671634614e91e9601493dbac0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8681358768032975542, guid: 43b5338671634614e91e9601493dbac0,
         type: 3}
@@ -18092,7 +18093,7 @@ PrefabInstance:
     - target: {fileID: 603162474305767338, guid: d37216252695fb441a5e15333a2e62ce,
         type: 3}
       propertyPath: m_text
-      value: Vizibility Panel
+      value: Visibility Panel
       objectReference: {fileID: 0}
     - target: {fileID: 2613020127257491299, guid: d37216252695fb441a5e15333a2e62ce,
         type: 3}
@@ -23537,7 +23538,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5468122427555212321}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.77, y: 0, z: 0.48}
+  m_LocalPosition: {x: -20.09, y: 0, z: 0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
